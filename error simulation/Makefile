@@ -4,13 +4,13 @@ BUILDDIR=build
 DEPDIR=build/dep
 OBJDIR=build/obj
 
-EXE=build/crc
+EXE=build/error
 
-CPPSRC=$(wildcard $(SRCDIR)/*.cpp)
-CPPOBJ=$(patsubst $(SRCDIR)/%.cpp,$(OBJDIR)/%.o,$(CPPSRC))
-CPPDEP=$(patsubst $(SRCDIR)/%.cpp,$(DEPDIR)/%.d,$(CPPSRC))
+CPPSRC=$(wildcard $(SRCDIR)/*.c)
+CPPOBJ=$(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(CPPSRC))
+CPPDEP=$(patsubst $(SRCDIR)/%.c,$(DEPDIR)/%.d,$(CPPSRC))
 
-CPP=g++
+CPP=gcc
 CPPFLAGS=-I$(HDIR) -g
 
 all: $(EXE)
