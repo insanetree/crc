@@ -5,6 +5,8 @@
 #include <unordered_set>
 #include <exception>
 
+#include "Crc.hpp"
+
 static const int param_num = 4;
 static const int err_param = 1;
 static const int err_poly = 2;
@@ -38,5 +40,9 @@ int main(int argc, char* argv[]) {
 		std::cerr<<filename<<" does not exist"<<std::endl;
 		std::exit(err_file);
 	}
+
+	Crc crc(polynomial);
+	std::cout<<crc.calculate_checksum(input)<<std::endl;
+
 	return 0;
 }

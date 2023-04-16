@@ -4,7 +4,7 @@ BitBuffer::BitBuffer(std::istream& in) : input(in) {
 	cnt = buffer_size;
 }
 
-int  BitBuffer::get_bit() {
+int BitBuffer::get_bit() {
 	if(input.eof() && cnt >= buffer_size) {
 		return -1;
 	}
