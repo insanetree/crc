@@ -10,7 +10,7 @@ CPPOBJ=$(patsubst $(SRCDIR)/%.cpp,$(OBJDIR)/%.o,$(CPPSRC))
 CPPDEP=$(patsubst $(SRCDIR)/%.cpp,$(DEPDIR)/%.d,$(CPPSRC))
 
 CPP=g++
-CPPFLAGS=-I$(HDIR)
+CPPFLAGS=-I$(HDIR) -g
 
 all: $(EXE)
 
