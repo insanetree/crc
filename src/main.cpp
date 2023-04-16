@@ -13,6 +13,8 @@ static const int err_poly = 2;
 static const int err_file = 3;
 static const int err_action = 4;
 
+void encode(std::istream& in, std::ostream& out, Crc& crc);
+
 int main(int argc, char* argv[]) {
 	//all the input argument checks
 	if(argc != param_num) {
@@ -40,9 +42,38 @@ int main(int argc, char* argv[]) {
 		std::cerr<<filename<<" does not exist"<<std::endl;
 		std::exit(err_file);
 	}
-
 	Crc crc(polynomial);
-	std::cout<<crc.calculate_checksum(input)<<std::endl;
-
+	if(action == "c") {
+		std::string outname = filename + ".crc";
+		std::ofstream output(outname, std::ios::out|std::ios::binary);
+		encode(input, output, crc);
+		output.close();
+	} else if(action == "d") {
+		std::cout<<crc.calculate_checksum(input);
+	}
+	input.close();
 	return 0;
+}
+
+void encode(std::istream& in, std::ostream& out, Crc& crc) {
+	char byte;
+	unsigned long long checksum;
+	in.seekg(0, std::ios::end);
+	long size = in.tellg();
+	in.seekg(0);
+	char *buffer = new char[size];
+	in.read(buffer,size);
+	out.write(buffer,size);
+	delete[] buffer;
+	out.flush();
+	in.clear();
+	in.seekg(0, std::ios::beg);
+	checksum = crc.calculate_checksum(in);
+	checksum <<= (8*sizeof(checksum) - crc.get_msb());
+	for(int i = 0 ; i < crc.get_msb() ; i += 8) {
+		byte = checksum >> 56;
+		checksum <<= 8;
+		out.write(&byte, 1);
+	}
+	out.flush();
 }
