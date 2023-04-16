@@ -21,11 +21,11 @@ run: all
 $(EXE): $(CPPOBJ)
 	$(CPP) $(CPPFLAGS) -o $@ $^
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.cpp
+$(OBJDIR)/%.o: $(SRCDIR)/%.c
 	mkdir -p $(OBJDIR)
 	$(CPP) $(CPPFLAGS) -c -o $@ $<
 
-$(DEPDIR)/%.d: $(SRCDIR)/%.cpp
+$(DEPDIR)/%.d: $(SRCDIR)/%.c
 	mkdir -p $(DEPDIR)
 	$(CPP) $(CPPFLAGS) -MM -MT $(OBJDIR)/$*.o $< > $@
 
