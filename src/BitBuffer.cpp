@@ -13,7 +13,7 @@ int BitBuffer::get_bit() {
 		input.read(&buffer, 1);
 	}
 	cnt++;
-	int ret = buffer & 0x1;
-	buffer >>= 1;
+	int ret = buffer>>(buffer_size - 1) & 0x1;
+	buffer <<= 1;
 	return ret;
 }
