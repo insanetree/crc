@@ -17,7 +17,7 @@ unsigned long long Crc::calculate_checksum(std::istream& input) {
 	while((bit = buffer->get_bit()) >= 0) {
 		remainder <<= 1;
 		remainder |= bit;
-		if(remainder >= (1<<msb)) {
+		if(remainder >= (1ul<<msb)) {
 			remainder ^= polynomial;
 		}
 	}
